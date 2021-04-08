@@ -1,18 +1,18 @@
 package main;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -35,7 +35,6 @@ import java.io.InputStream;
  */
 public class MainMenu extends Application {
 
-    private static VBox root;
     private Scene mainMenu;
     private static String selectedLang = "english";
     private static final int WIDTH = 850;
@@ -54,13 +53,11 @@ public class MainMenu extends Application {
     public void start(Stage mainMenuStage) throws Exception {
         FileReader.readFile("src/resources/LevelFiles/test.txt");
 
+        // Menu bar
+        Menu volumeMenu = new Menu("Volume");
 
         Slider volSlider = new Slider(0, 100, 0);
-
         volSlider.setMajorTickUnit(10.0);
-        TitledPane titledPane = new TitledPane("Change volume", volSlider);
-        titledPane.setCollapsible(false);
-        titledPane.setContent(volSlider);
         volSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -70,8 +67,64 @@ public class MainMenu extends Application {
             }
         });
 
+        CustomMenuItem volumeSlider = new CustomMenuItem();
+        volumeSlider.setContent(volSlider);
+        volumeSlider.setHideOnClick(false);
+        volumeMenu.getItems().add(volumeSlider);
 
+        MenuItem mute = new MenuItem("Mute");
+        ImageView imageView = new ImageView("src\\resources\\Images\\menu_images\\mute.png");
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
+        mute.setGraphic(imageView);
+        mute.setOnAction(e -> {
+            mediaPlayer.setVolume(0);
+            volSlider.setValue(0);
+        });
+        volumeMenu.getItems().add(mute);
+
+        Menu quitMenu = new Menu("Quit");
+
+        MenuItem quitToMenu = new MenuItem("Quit To Menu");
+        quitToMenu.setOnAction((ActionEvent t) -> {
+            mainMenuStage.setScene(mainMenu);
+        });
+        quitMenu.getItems().add(quitToMenu);
+
+        MenuItem exitGame = new MenuItem("Exit Game");
+        exitGame.setOnAction((ActionEvent t) -> {
+            System.exit(0);
+        });
+        quitMenu.getItems().add(exitGame);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(volumeMenu);
+        menuBar.getMenus().add(quitMenu);
+
+        BorderPane border = new BorderPane();
+        border.setTop(menuBar);
+
+        /*
+        Slider volSlider = new Slider(0, 100, 0);
+        volSlider.setMajorTickUnit(10.0);
+        volSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                volume = Math.round(newValue.intValue() * 10.0) / 1000.0;
+                System.out.println(volume);
+                mediaPlayer.setVolume(volume);
+            }
+        });
+
+        TitledPane titledPane = new TitledPane("Change volume", volSlider);
+        titledPane.setCollapsible(false);
+        titledPane.setContent(volSlider);
         titledPane.setAlignment(Pos.BOTTOM_CENTER);
+
+         */
+
+
+        // Title
         mainMenuStage.setTitle("Mataha");
 
         final ImageView selectedImage = new ImageView(new Image("src/resources/Images/menu_images//logo.gif"));
@@ -81,6 +134,7 @@ public class MainMenu extends Application {
         VBox layout1 = new VBox(10);
         layout1.setAlignment(Pos.CENTER);
 
+        // Play
         Button play = new Button("Play");
         play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -95,7 +149,7 @@ public class MainMenu extends Application {
         play.setGraphic(playImg);
         play.setMaxSize(250, 150);
 
-
+        // Load Game
         Button loadGame = new Button("Load Game");
         loadGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -109,13 +163,12 @@ public class MainMenu extends Application {
                 mainMenuStage.close();
             }
         });
-        InputStream is;
         final Image loadbttn = new Image(new FileInputStream("src/resources/Images/menu_images//floppy.gif"), 50, 50, true, true);
         ImageView floppyload = new ImageView(loadbttn);
         loadGame.setGraphic(floppyload);
         loadGame.setMaxSize(250, 150);
 
-
+        // Level Editor
         Button levelEditor = new Button("Level Editor");
         levelEditor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -130,7 +183,7 @@ public class MainMenu extends Application {
         levelEditor.setGraphic(pencilload);
         levelEditor.setMaxSize(250, 150);
 
-
+        // New Profile
         Button newProfile = new Button("Profile");
         newProfile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -168,7 +221,7 @@ public class MainMenu extends Application {
         newProfile.setText(Utils.translate("New Profile", selectedLang));
         highScores.setText(Utils.translate("Leaderboard", selectedLang));
         levelEditor.setText(Utils.translate("Level Editor", selectedLang));
-        titledPane.setText(Utils.translate("Change volume", selectedLang));
+        //titledPane.setText(Utils.translate("Change volume", selectedLang));
         langDropDown.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -178,7 +231,7 @@ public class MainMenu extends Application {
                 newProfile.setText(Utils.translate("New Profile", selectedLang));
                 highScores.setText(Utils.translate("Leaderboard", selectedLang));
                 levelEditor.setText(Utils.translate("Level Editor", selectedLang));
-                titledPane.setText(Utils.translate("Change volume", selectedLang));
+                //titledPane.setText(Utils.translate("Change volume", selectedLang));
             }
         });
         langDropDown.getSelectionModel().select(selectedLang);
@@ -195,7 +248,7 @@ public class MainMenu extends Application {
         messageOfDay.setWrappingWidth(WIDTH * 0.7);
         messageOfDay.setTextAlignment(TextAlignment.CENTER);
 
-        layout1.getChildren().addAll(titledPane, selectedImage, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
+        layout1.getChildren().addAll(border, selectedImage, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
         mainMenu = new Scene(layout1, WIDTH, HEIGHT);
 
 
@@ -206,7 +259,6 @@ public class MainMenu extends Application {
         mainMenuStage.setResizable(IS_RESIZABLE);
         mainMenuStage.getIcons().add(new Image("src/resources/Images/menu_images/icon2.png"));
         mainMenuStage.show();
-
     }
 
     /**
