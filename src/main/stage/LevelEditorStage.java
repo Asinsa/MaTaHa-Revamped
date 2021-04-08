@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
 
 /**
  * LevelEditorStage allows the user to customise their own gameboard.
@@ -35,12 +35,12 @@ import java.util.concurrent.TimeUnit;
 public class LevelEditorStage {
 
     public static String fileUrl;
-    private static int ONE = 1;
+    private static final int ONE = 1;
     String colour = "";
     String url = "";
     ToggleButton chosenButton = null;
     int count = ONE;
-    private Stage levelEditorStage = new Stage();
+    private final Stage levelEditorStage = new Stage();
     private Scene subMenu, levelEditor, playLevel, deleteLevel, characterSelection;
     private NavigationTile tileInHand = null;
     private Map map;
@@ -66,9 +66,10 @@ public class LevelEditorStage {
         // adds all the texture pack files in the directory to a combo box
         File directoryPath = new File("src/resources/Images/game_images/texture_packs");
         String contents[] = directoryPath.list();
-        for (int i = 0; i < contents.length; i++) {
-            String chosenSave = contents[i];
-            texturePackCombo.getItems().add(chosenSave);
+        if (contents != null) {
+            for (String chosenSave : contents) {
+                texturePackCombo.getItems().add(chosenSave);
+            }
         }
         texturePackCombo.getSelectionModel().select(0);
         selectedTexture = texturePackCombo.getValue().toString();
@@ -311,7 +312,7 @@ public class LevelEditorStage {
                     fileUrl = "src/resources/LevelEditorFiles/" + saveFileComboBox.getValue() + ".txt";
                     if (saveFileComboBox.getValue() != null) {
 
-                        //displays warings if not enough players selected
+                        //displays warnings if not enough players selected
                         if (p1.getValue() == null || p2.getValue() == null) {
                             warnings.setText(Utils.translate("Please select at least 2 players!", MainMenu.getLang()));
                         } else if (p1.getValue().equals(p2.getValue())) {
@@ -405,7 +406,7 @@ public class LevelEditorStage {
 
         ToggleGroup characterToggle = new ToggleGroup();
 
-        // Gets all the characted images from a folder and maps them to buttons that the user can select
+        // Gets all the characters images from a folder and maps them to buttons that the user can select
         File directoryPath = new File("src//resources/Images//character_images");
         String contents[] = directoryPath.list();
         for (int i = 0; i < contents.length; i++) {
@@ -417,7 +418,7 @@ public class LevelEditorStage {
                     contents[i]), 50, 50, true, false)));
             character.setToggleGroup(characterToggle);
 
-           // selects charater
+           // selects characters
             character.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -441,7 +442,7 @@ public class LevelEditorStage {
                 if (characterToggle.getSelectedToggle() == null) {
                     warnings.setText(Utils.translate("Please select a character", MainMenu.getLang()));
                 } else {
-                    // Adds character to the game and removes selected charater as an option for next player
+                    // Adds character to the game and removes selected character as an option for next player
                     NewGameStage.chosenCharacters.add(url);
                     hBoxCharacters.getChildren().remove(chosenButton);
                     if (count < NewGameStage.players.size()) {
@@ -493,9 +494,18 @@ public class LevelEditorStage {
             public void handle(ActionEvent event) {
                 if (saveComboBox.getValue() != null &&
                         !saveComboBox.getValue().toString().isEmpty()) {
-                    File selectedFile = new File("src\\resources\\LevelEditorFiles\\" + saveComboBox.getValue().toString() + ".txt");
-                    selectedFile.delete();
-                    levelEditorStage.setScene(subMenu);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation Dialog");
+                    alert.setHeaderText("Are you sure you want to delete " + saveComboBox.getValue().toString() + "?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK){
+                        File selectedFile = new File("src\\resources\\LevelEditorFiles\\" + saveComboBox.getValue().toString() + ".txt");
+                        selectedFile.delete();
+                        levelEditorStage.setScene(subMenu);
+                    } else {
+                        // ... user chose CANCEL or closed the dialog
+                    }
                 } else {
                     warnings.setText("Please select a level file to delete");
                 }
