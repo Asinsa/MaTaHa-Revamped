@@ -10,18 +10,35 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.MainMenu;
 
+/**
+ * MenuBars is the class for the menu bar.
+ *
+ * @author Asinsa Guniyangodage
+ * @version 1
+ */
 public class MenuBars extends BorderPane {
 
     private double volume;
-    private Stage mainMenuStage;
-    private Scene mainMenu;
+    private Stage stage;
+    private Scene scene;
 
-    public MenuBars(Stage mainMenuStage, Scene mainMenu) {
-        this.mainMenuStage = mainMenuStage;
-        this.mainMenu = mainMenu;
+    /**
+     * This initialises the menu bar
+     *
+     * @param stage This is the instance of the stage
+     * @param scene This is the instance of the scene
+     */
+    public MenuBars(Stage stage, Scene scene) {
+        this.stage = stage;
+        this.scene = scene;
         showMenuBar();
     }
 
+    /***
+     * This displays the menu bar
+     *
+     * @return the MenuBar
+     */
     public MenuBar showMenuBar() {
         // Menu bar
         Menu volumeMenu = new Menu("Volume");
@@ -57,7 +74,7 @@ public class MenuBars extends BorderPane {
 
         MenuItem quitToMenu = new MenuItem("Quit To Menu");
         quitToMenu.setOnAction((ActionEvent t) -> {
-            mainMenuStage.setScene(mainMenu);
+            stage.setScene(scene);
         });
         quitMenu.getItems().add(quitToMenu);
 
