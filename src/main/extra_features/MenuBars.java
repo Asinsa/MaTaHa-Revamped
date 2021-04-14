@@ -20,17 +20,15 @@ public class MenuBars extends BorderPane {
 
     private double volume;
     private Stage stage;
-    private Scene scene;
+   // private Scene scene;
 
     /**
      * This initialises the menu bar
      *
      * @param stage This is the instance of the stage
-     * @param scene This is the instance of the scene
      */
-    public MenuBars(Stage stage, Scene scene) {
+    public MenuBars(Stage stage) {
         this.stage = stage;
-        this.scene = scene;
         showMenuBar();
     }
 
@@ -74,7 +72,13 @@ public class MenuBars extends BorderPane {
 
         MenuItem quitToMenu = new MenuItem("Quit To Menu");
         quitToMenu.setOnAction((ActionEvent t) -> {
-            stage.setScene(scene);
+            MainMenu back = new MainMenu();
+            try {
+                back.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            stage.close();
         });
         quitMenu.getItems().add(quitToMenu);
 

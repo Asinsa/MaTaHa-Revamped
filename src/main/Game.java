@@ -3,7 +3,9 @@ package main;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.extra_features.MenuBars;
 import main.panels.BottomPanel;
 import main.panels.DrawCardPanel;
 import main.panels.GameInfoPanel;
@@ -74,8 +76,14 @@ public class Game {
         mainLayout.setRight(gameInfoPanel);
         drawCardPanel = new DrawCardPanel();
         mainLayout.setLeft(drawCardPanel);
+
+        MenuBars menuBar = new MenuBars(Mataha.getStage());
+
         TitlePanel titlePanel = new TitlePanel("src\\resources\\Images\\game_images\\title.gif");
-        mainLayout.setTop(titlePanel);
+
+        VBox vbox = new VBox(menuBar.showMenuBar(), titlePanel);
+
+        mainLayout.setTop(vbox);
     }
 
 

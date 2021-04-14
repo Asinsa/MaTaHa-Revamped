@@ -20,7 +20,7 @@ public class Mataha {
 
     private static Game game;
     private static Scene mainGame;
-    private Stage gameStage = new Stage();
+    private static Stage gameStage = new Stage();
     public static String texturePack = "road";
 
 
@@ -65,5 +65,7 @@ public class Mataha {
         return game;
     }
 
-
+    public static Stage getStage() {
+        return gameStage;
+    }
 }

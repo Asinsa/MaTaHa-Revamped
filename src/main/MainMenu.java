@@ -37,7 +37,7 @@ import java.io.InputStream;
  */
 public class MainMenu extends Application {
 
-    private Scene mainMenu;
+    private static Scene mainMenu;
     private static String selectedLang = "english";
     private static final int WIDTH = 850;
     private static final int HEIGHT = 850;
@@ -55,7 +55,7 @@ public class MainMenu extends Application {
     public void start(Stage mainMenuStage) throws Exception {
         FileReader.readFile("src/resources/LevelFiles/test.txt");
 
-        MenuBars menuBar = new MenuBars(mainMenuStage, mainMenu);
+        MenuBars menuBar = new MenuBars(mainMenuStage);
 
         BorderPane border = new BorderPane();
         border.setTop(menuBar.showMenuBar());
@@ -224,6 +224,10 @@ public class MainMenu extends Application {
 
     public void setMediaPlayer(MediaPlayer mediaPlayer) {
         this.mediaPlayer = mediaPlayer;
+    }
+
+    public static Scene getScene() {
+        return mainMenu;
     }
 
     /**

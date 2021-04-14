@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,6 +18,7 @@ import main.FileReader;
 import main.MainMenu;
 import main.Mataha;
 import main.Utils;
+import main.extra_features.MenuBars;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +48,11 @@ public class NewGameStage {
      * Method creates and shows the new game window.
      */
     public void showNewGameStage() {
+        MenuBars menuBar = new MenuBars(newGameStage);
+
+        BorderPane border = new BorderPane();
+        border.setTop(menuBar.showMenuBar());
+
         Label label2 = new Label(Utils.translate("Level Picker", MainMenu.getLang()) + "\n");
         label2.setId("title");
         final ComboBox levelFileComboBox = new ComboBox();
@@ -128,8 +135,9 @@ public class NewGameStage {
 
         vBoxMainLayout.setSpacing(40);
         vBoxMainLayout.getChildren().addAll(label2, hBoxLevelSelector, label3, hBoxProfileSelector, warnings, next);
+        border.setCenter(vBoxMainLayout);
 
-        newGame = new Scene(vBoxMainLayout, 700, 500);
+        newGame = new Scene(border, 700, 500);
         newGame.getStylesheets().add("src/resources/StyleSheets/MaTaHa.css");
         newGameStage.setTitle(Utils.translate("New Game", MainMenu.getLang()));
         newGameStage.setScene(newGame);
