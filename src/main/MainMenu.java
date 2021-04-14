@@ -19,9 +19,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import main.extra_features.MenuBars;
 import main.level_editor_components.Map;
 import main.stage.*;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,56 +55,10 @@ public class MainMenu extends Application {
     public void start(Stage mainMenuStage) throws Exception {
         FileReader.readFile("src/resources/LevelFiles/test.txt");
 
-        // Menu bar
-        Menu volumeMenu = new Menu("Volume");
-
-        Slider volSlider = new Slider(0, 100, 0);
-        volSlider.setMajorTickUnit(10.0);
-        volSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                volume = Math.round(newValue.intValue() * 10.0) / 1000.0;
-                System.out.println(volume);
-                mediaPlayer.setVolume(volume);
-            }
-        });
-
-        CustomMenuItem volumeSlider = new CustomMenuItem();
-        volumeSlider.setContent(volSlider);
-        volumeSlider.setHideOnClick(false);
-        volumeMenu.getItems().add(volumeSlider);
-
-        MenuItem mute = new MenuItem("Mute");
-        ImageView imageView = new ImageView("src\\resources\\Images\\menu_images\\mute.png");
-        imageView.setFitHeight(30);
-        imageView.setFitWidth(30);
-        mute.setGraphic(imageView);
-        mute.setOnAction(e -> {
-            mediaPlayer.setVolume(0);
-            volSlider.setValue(0);
-        });
-        volumeMenu.getItems().add(mute);
-
-        Menu quitMenu = new Menu("Quit");
-
-        MenuItem quitToMenu = new MenuItem("Quit To Menu");
-        quitToMenu.setOnAction((ActionEvent t) -> {
-            mainMenuStage.setScene(mainMenu);
-        });
-        quitMenu.getItems().add(quitToMenu);
-
-        MenuItem exitGame = new MenuItem("Exit Game");
-        exitGame.setOnAction((ActionEvent t) -> {
-            System.exit(0);
-        });
-        quitMenu.getItems().add(exitGame);
-
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().add(volumeMenu);
-        menuBar.getMenus().add(quitMenu);
+        MenuBars menuBar = new MenuBars(mainMenuStage, mainMenu);
 
         BorderPane border = new BorderPane();
-        border.setTop(menuBar);
+        border.setTop(menuBar.showMenuBar());
 
         /*
         Slider volSlider = new Slider(0, 100, 0);
@@ -248,8 +204,9 @@ public class MainMenu extends Application {
         messageOfDay.setWrappingWidth(WIDTH * 0.7);
         messageOfDay.setTextAlignment(TextAlignment.CENTER);
 
-        layout1.getChildren().addAll(border, selectedImage, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
-        mainMenu = new Scene(layout1, WIDTH, HEIGHT);
+        layout1.getChildren().addAll(selectedImage, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
+        border.setCenter(layout1);
+        mainMenu = new Scene(border, WIDTH, HEIGHT);
 
 
         // mainGame
@@ -259,6 +216,14 @@ public class MainMenu extends Application {
         mainMenuStage.setResizable(IS_RESIZABLE);
         mainMenuStage.getIcons().add(new Image("src/resources/Images/menu_images/icon2.png"));
         mainMenuStage.show();
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 
     /**
