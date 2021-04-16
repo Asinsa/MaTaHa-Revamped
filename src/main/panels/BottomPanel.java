@@ -1,7 +1,11 @@
 package main.panels;
 
+import javafx.beans.binding.Bindings;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import main.Game;
+import main.Mataha;
 import main.tile.EffectTile;
 
 /***

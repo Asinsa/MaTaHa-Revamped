@@ -1,5 +1,6 @@
 package main.panels;
 
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -105,6 +106,7 @@ public class NavigationButtonPanel extends VBox {
         this.setStyle("-fx-background-color: linear-gradient(to bottom,#636363, #999b9e)");
         this.setMinHeight(120);
         this.setMinWidth(980);
+        this.prefWidthProperty().bind(Mataha.getStage().widthProperty());
     }
 
     /***

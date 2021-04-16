@@ -1,9 +1,13 @@
 package main.panels;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import main.Mataha;
 import main.Player;
 import main.tile.EffectTile;
@@ -30,6 +34,7 @@ public class PlayerTilesPanel extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setStyle("-fx-background-color: linear-gradient(to bottom,#636363, #999b9e)");
         this.setMinHeight(120);
+        this.prefWidthProperty().bind(Mataha.getStage().widthProperty());
         this.setMinWidth(980);
         this.setSpacing(20);
         this.setPadding(new Insets(10));
