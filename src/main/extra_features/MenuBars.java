@@ -18,6 +18,7 @@ import main.MainMenu;
 public class MenuBars extends BorderPane {
 
     private double volume;
+    private int sliderValue;
     private Stage stage;
    // private Scene scene;
 
@@ -42,9 +43,11 @@ public class MenuBars extends BorderPane {
 
         Slider volSlider = new Slider(0, 100, 0);
         volSlider.setMajorTickUnit(10.0);
+        volSlider.adjustValue(sliderValue);
         volSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sliderValue = newValue.intValue();
                 volume = Math.round(newValue.intValue() * 10.0) / 1000.0;
                 System.out.println(volume);
                 MainMenu.getMediaPlayer().setVolume(volume);
@@ -92,5 +95,9 @@ public class MenuBars extends BorderPane {
         menuBar.getMenus().add(quitMenu);
 
         return menuBar;
+    }
+
+    public double getVolume() {
+        return volume;
     }
 }

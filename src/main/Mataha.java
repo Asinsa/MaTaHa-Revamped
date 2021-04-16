@@ -43,18 +43,6 @@ public class Mataha {
         game = new Game(mainLayout);
         gameStage.setScene(mainGame);
 
-
-        //Setting up main menu music.
-        /*
-        MainMenu.mediaPlayer.stop();
-        Media musicPlayer = new Media(new File("src/resources/GameMusic.mp3").toURI().toString());
-        MainMenu.mediaPlayer = new MediaPlayer(musicPlayer);
-        MainMenu.mediaPlayer.setAutoPlay(true);
-        MainMenu.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        MainMenu.mediaPlayer.setVolume(0.1);
-
-         */
-
         gameStage.setTitle(Utils.translate("play now!", MainMenu.getLang()));
         gameStage.setResizable(MainMenu.getResizable());
         gameStage.getIcons().add(new Image("src/resources/Images/menu_images/icon2.png"));

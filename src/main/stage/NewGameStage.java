@@ -48,7 +48,7 @@ public class NewGameStage {
      * Method creates and shows the new game window.
      */
     public void showNewGameStage() {
-        MenuBars menuBar = new MenuBars(newGameStage);
+        MenuBars menuBar = MainMenu.getMenuBar();
 
         BorderPane border = new BorderPane();
         border.setTop(menuBar.showMenuBar());

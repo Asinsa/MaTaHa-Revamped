@@ -1,12 +1,15 @@
 package main;
 
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import main.extra_features.MenuBars;
 import main.panels.BottomPanel;
@@ -16,6 +19,7 @@ import main.stage.LoadGameStage;
 import main.stage.NewGameStage;
 import main.tile.EffectTile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -61,6 +65,7 @@ public class Game {
      */
     private void initScreen() {
         GameBoard board = new GameBoard(FileReader.getGameBoard());
+        board.setAlignment(Pos.CENTER);
         this.gameBoard = board;
         for (int row = 0; row < gameBoard.getBoard().length; row++) {
             for (int col = 0; col < gameBoard.getBoard()[0].length; col++) {
@@ -80,7 +85,15 @@ public class Game {
         drawCardPanel = new DrawCardPanel();
         mainLayout.setLeft(drawCardPanel);
 
-        MenuBars menuBar = new MenuBars(Mataha.getStage());
+        //Setting up main menu music.
+        MainMenu.mediaPlayer.stop();
+        Media musicPlayer = new Media(new File("src/resources/GameMusic.mp3").toURI().toString());
+        MainMenu.mediaPlayer = new MediaPlayer(musicPlayer);
+        MainMenu.mediaPlayer.setAutoPlay(true);
+        MainMenu.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        MainMenu.mediaPlayer.setVolume(MainMenu.getMenuBar().getVolume());
+
+        MenuBars menuBar = MainMenu.getMenuBar();
 
         TitlePanel titlePanel = new TitlePanel("src\\resources\\Images\\game_images\\title.gif");
 

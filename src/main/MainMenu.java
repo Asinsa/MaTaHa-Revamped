@@ -44,6 +44,7 @@ public class MainMenu extends Application {
     private static final boolean IS_RESIZABLE = true;
     public static MediaPlayer mediaPlayer = null;
     private static double volume;
+    private static MenuBars menuBar;
 
     /**
      * Method creates the main menu window.
@@ -55,7 +56,7 @@ public class MainMenu extends Application {
     public void start(Stage mainMenuStage) throws Exception {
         FileReader.readFile("src/resources/LevelFiles/test.txt");
 
-        MenuBars menuBar = new MenuBars(mainMenuStage);
+        menuBar = new MenuBars(mainMenuStage);
 
         BorderPane border = new BorderPane();
         border.setTop(menuBar.showMenuBar());
@@ -224,6 +225,10 @@ public class MainMenu extends Application {
 
     public void setMediaPlayer(MediaPlayer mediaPlayer) {
         this.mediaPlayer = mediaPlayer;
+    }
+
+    public static MenuBars getMenuBar() {
+        return menuBar;
     }
 
     public static Scene getScene() {
