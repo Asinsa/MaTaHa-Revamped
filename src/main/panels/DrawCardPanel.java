@@ -12,6 +12,9 @@ import main.Mataha;
 import main.Utils;
 import main.tile.NavigationTile;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 /**
  * This class is for the panel which holds the draw card, function on the game board.
  *
@@ -27,6 +30,8 @@ public class DrawCardPanel extends VBox {
     private HBox hBox;
     private Button rotateLeft;
     private Button rotateRight;
+    ImageView downArrows = new ImageView();
+    ImageView upArrows = new ImageView();
 
     /**
      * This creates the space for the draw card panel upon the game, this sets the width, the alignment ready for the content.
@@ -36,6 +41,12 @@ public class DrawCardPanel extends VBox {
         this.setPadding(new Insets(20));
         this.setSpacing(20);
         this.setPrefWidth(200);
+        try {
+            downArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/downArrows.gif"), 100, 100, true, false));
+            upArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/upArrows.gif"), 100, 100, true, false));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         initNodes();
     }
 
@@ -48,7 +59,9 @@ public class DrawCardPanel extends VBox {
         drawTile.setOnMouseClicked(event -> {
             Mataha.getGame().getCurrentPlayer().drawCard();
             drawTile.setDisable(true);
+            downArrows.setVisible(false);
         });
+        this.getChildren().add(downArrows);
         this.getChildren().add(drawTile);
         imageView = new ImageView();
         imageView.setFitHeight(50);
@@ -94,6 +107,7 @@ public class DrawCardPanel extends VBox {
         hBox.getChildren().add(rotateRight);
 
         this.getChildren().add(hBox);
+        this.getChildren().add(upArrows);
         showRotateButtons();
 
     }
@@ -106,6 +120,7 @@ public class DrawCardPanel extends VBox {
         setImageAsTileBag();
         drawTile.setVisible(true);
         drawTile.setDisable(false);
+        downArrows.setVisible(true);
     }
 
     /**
@@ -114,6 +129,7 @@ public class DrawCardPanel extends VBox {
     public void showRotateButtons() {
         rotateRight.setVisible(true);
         rotateLeft.setVisible(true);
+        upArrows.setVisible(true);
     }
 
     /**
@@ -122,5 +138,6 @@ public class DrawCardPanel extends VBox {
     public void hideRotationButtons() {
         rotateRight.setVisible(false);
         rotateLeft.setVisible(false);
+        upArrows.setVisible(false);
     }
 }
