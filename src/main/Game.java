@@ -81,6 +81,8 @@ public class Game {
         bottomPanel.displayPlayerTiles();
         mainLayout.setBottom(bottomPanel);
         this.gameInfoPanel = new GameInfoPanel(this);
+        gameInfoPanel.setMaxWidth(200);
+        HBox.setHgrow(gameInfoPanel, Priority.ALWAYS);
         mainLayout.setRight(gameInfoPanel);
         drawCardPanel = new DrawCardPanel();
         mainLayout.setLeft(drawCardPanel);

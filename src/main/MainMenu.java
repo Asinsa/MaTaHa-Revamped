@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import main.extra_features.MenuBars;
+import main.extra_features.Tutorial;
 import main.level_editor_components.Map;
 import main.stage.*;
 
@@ -90,6 +91,17 @@ public class MainMenu extends Application {
 
         VBox layout1 = new VBox(10);
         layout1.setAlignment(Pos.CENTER);
+
+        // TODO: TEMP
+        Button temp = new Button("TEMP");
+        temp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Tutorial tutorial = new Tutorial();
+                mainMenuStage.close();
+            }
+        });
+        temp.setMaxSize(250, 150);
 
         // Play
         Button play = new Button("Play");
@@ -205,7 +217,7 @@ public class MainMenu extends Application {
         messageOfDay.setWrappingWidth(WIDTH * 0.7);
         messageOfDay.setTextAlignment(TextAlignment.CENTER);
 
-        layout1.getChildren().addAll(selectedImage, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
+        layout1.getChildren().addAll(selectedImage,temp, play, loadGame, levelEditor, newProfile, highScores, langDropDown, messageOfDay);
         border.setCenter(layout1);
         mainMenu = new Scene(border, WIDTH, HEIGHT);
 

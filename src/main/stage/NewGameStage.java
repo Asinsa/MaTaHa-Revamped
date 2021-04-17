@@ -7,6 +7,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -19,11 +20,13 @@ import main.MainMenu;
 import main.Mataha;
 import main.Utils;
 import main.extra_features.MenuBars;
+import main.extra_features.Tutorial;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * NewGameStage allows the user to create a new game by choosing the level and players.
@@ -85,9 +88,11 @@ public class NewGameStage {
                 if (levelFileComboBox.getValue() != null) {
                     if (p1.getValue() == null || p2.getValue() == null) {
                         warnings.setText(Utils.translate("Please select at least 2 players!", MainMenu.getLang()));
-                    } else if (p1.getValue().equals(p2.getValue())) {
+                    }
+                    else if (p1.getValue().equals(p2.getValue())) {
                         warnings.setText(Utils.translate("Please select 2 different profiles", MainMenu.getLang()));
-                    } else {
+                    }
+                    else {
                         //main.FileReader.readFile("leve1 file " + levelfile);
                         players.add((String) p1.getValue());
 
@@ -112,7 +117,8 @@ public class NewGameStage {
                         }
 
                     }
-                } else {
+                }
+                else {
                     warnings.setText(Utils.translate("Please select a level", MainMenu.getLang()));
                 }
             }
@@ -200,16 +206,30 @@ public class NewGameStage {
             public void handle(ActionEvent event) {
                 if (characterToggle.getSelectedToggle() == null) {
                     warnings.setText(Utils.translate("Please select a character", MainMenu.getLang()));
-                } else {
+                }
+                else {
                     chosenCharacters.add(url);
                     hBoxCharacters.getChildren().remove(chosenButton);
                     if (count < players.size()) {
                         characterToggle.getSelectedToggle().setSelected(false);
                         title.setText(Utils.translate("Pick a character", MainMenu.getLang()) + " " + players.get(count));
                         count++;
-                    } else {
-                        Mataha mataha = new Mataha();
+                    }
+                    else {
                         newGameStage.close();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("Do you want a tutorial before beginning to play?");
+                        ButtonType yesButton = new ButtonType("Yes");
+                        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                        alert.getButtonTypes().setAll(yesButton, noButton);
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == yesButton){
+                            Tutorial tutorial = new Tutorial();
+                        } else {
+                            Mataha mataha = new Mataha();
+                        }
                     }
                 }
             }

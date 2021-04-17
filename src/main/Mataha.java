@@ -1,13 +1,20 @@
 package main;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
+import java.util.Optional;
 
 /**
  * main.Mataha is the main game class that runs the game itself.
@@ -16,7 +23,6 @@ import java.io.File;
  * @version 1
  */
 public class Mataha {
-
 
     private static Game game;
     private static Scene mainGame;
@@ -43,6 +49,7 @@ public class Mataha {
         game = new Game(mainLayout);
         gameStage.setScene(mainGame);
 
+        gameStage.setMaximized(true);
         gameStage.setTitle(Utils.translate("play now!", MainMenu.getLang()));
         gameStage.setResizable(MainMenu.getResizable());
         gameStage.getIcons().add(new Image("src/resources/Images/menu_images/icon2.png"));
