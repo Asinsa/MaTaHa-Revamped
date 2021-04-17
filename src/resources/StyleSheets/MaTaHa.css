@@ -28,6 +28,11 @@
 #title {
     -fx-font-size: 25;
 }
+
+#subtitle {
+    -fx-font-size: 18;
+}
+
 .titledPane{
     -fx-padding: 0em;
     -fx-spacing: 0;
