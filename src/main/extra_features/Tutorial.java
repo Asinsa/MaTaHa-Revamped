@@ -25,8 +25,10 @@ public class Tutorial {
     private Scene tutorial;
     private BorderPane main, turns, effectTiles;
     private MenuBars menuBar = MainMenu.getMenuBar();
+    private boolean inGame;
 
-    public Tutorial() {
+    public Tutorial(Boolean inGame) {
+        this.inGame = inGame;
         try {
             showTutorialStage();
         } catch (FileNotFoundException e) {
@@ -78,7 +80,17 @@ public class Tutorial {
             @Override
             public void handle(ActionEvent event) {
                 tutorialStage.close();
-                Mataha mataha = new Mataha();
+                if (inGame) {
+                    Mataha mataha = new Mataha();
+                }
+                else {
+                    MainMenu back = new MainMenu();
+                    try {
+                        back.start(new Stage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
         main.setBottom(back);
@@ -271,7 +283,17 @@ public class Tutorial {
             @Override
             public void handle(ActionEvent event) {
                 tutorialStage.close();
-                Mataha mataha = new Mataha();
+                if (inGame) {
+                    Mataha mataha = new Mataha();
+                }
+                else {
+                    MainMenu back = new MainMenu();
+                    try {
+                        back.start(new Stage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 

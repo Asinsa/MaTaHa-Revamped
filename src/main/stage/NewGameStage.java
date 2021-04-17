@@ -226,7 +226,7 @@ public class NewGameStage {
 
                         Optional<ButtonType> result = alert.showAndWait();
                         if (result.get() == yesButton){
-                            Tutorial tutorial = new Tutorial();
+                            Tutorial tutorial = new Tutorial(true);
                         } else {
                             Mataha mataha = new Mataha();
                         }

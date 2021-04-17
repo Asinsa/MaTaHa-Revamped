@@ -93,11 +93,11 @@ public class MainMenu extends Application {
         layout1.setAlignment(Pos.CENTER);
 
         // TODO: TEMP
-        Button temp = new Button("TEMP");
+        Button temp = new Button("Tutorial");
         temp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Tutorial tutorial = new Tutorial();
+                Tutorial tutorial = new Tutorial(false);
                 mainMenuStage.close();
             }
         });
