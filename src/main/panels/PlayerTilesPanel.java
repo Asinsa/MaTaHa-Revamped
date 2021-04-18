@@ -8,10 +8,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 import main.Mataha;
 import main.Player;
+import main.extra_features.MenuBars;
 import main.tile.EffectTile;
 import main.tile.EffectTileContainer;
+
+import java.io.File;
 
 /**
  * Class for the player tiles panel
@@ -21,6 +26,11 @@ import main.tile.EffectTileContainer;
 public class PlayerTilesPanel extends HBox {
 
     private BottomPanel context;
+    MenuBars menuBar = new MenuBars(new Stage());
+    private static final AudioClip FIRE_SFX = new AudioClip(new File("src/resources/SFX/fire.mp3").toURI().toString());
+    private static final AudioClip ICE_SFX = new AudioClip(new File("src/resources/SFX/ice.mp3").toURI().toString());
+    private static final AudioClip DOUBLEMOVE_SFX = new AudioClip(new File("src/resources/SFX/doublemove.mp3").toURI().toString());
+    private static final AudioClip BACKTRACK_SFX = new AudioClip(new File("src/resources/SFX/backtrack.mp3").toURI().toString());
 
     public PlayerTilesPanel(BottomPanel context) {
         this.context = context;
@@ -64,16 +74,20 @@ public class PlayerTilesPanel extends HBox {
                 Mataha.getGame().getGameInfoPanel().hideNavNextButton();
                 switch (tile.getTileEffect().getEffectName()) {
                     case "ice":
+                        ICE_SFX.play(menuBar.getSFXVolume());
                         Mataha.getGame().setBoardState(1);
                         break;
                     case "fire":
+                        FIRE_SFX.play(menuBar.getSFXVolume());
                         Mataha.getGame().setBoardState(2);
                         break;
                     case "backtrack":
+                        BACKTRACK_SFX.play(menuBar.getSFXVolume());
                         Mataha.getGame().setBoardState(3);
                         break;
                     case "doublemove":
                         //main.Mataha.getGame().setBoardState(4);
+                        DOUBLEMOVE_SFX.play(menuBar.getSFXVolume());
                         Mataha.getGame().getCurrentPlayer().setNumMoves(2);
                         Mataha.getGame().getBottomPanel().getPlayerTilesPanel().removeEffectTile();
                         Mataha.getGame().setBoardState(0);
