@@ -96,6 +96,7 @@ public class Game {
         MainMenu.mediaPlayer.setVolume(MainMenu.getMenuBar().getVolume());
 
         MenuBars menuBar = MainMenu.getMenuBar();
+        menuBar.setGame(true);
 
         TitlePanel titlePanel = new TitlePanel("src\\resources\\Images\\game_images\\title.gif");
 

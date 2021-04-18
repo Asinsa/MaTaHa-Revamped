@@ -58,6 +58,7 @@ public class MainMenu extends Application {
         FileReader.readFile("src/resources/LevelFiles/test.txt");
 
         menuBar = new MenuBars(mainMenuStage);
+        menuBar.setGame(false);
 
         BorderPane border = new BorderPane();
         border.setTop(menuBar.showMenuBar());

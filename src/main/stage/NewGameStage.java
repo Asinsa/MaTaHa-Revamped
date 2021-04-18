@@ -229,6 +229,7 @@ public class NewGameStage {
                             Tutorial tutorial = new Tutorial(true);
                         } else {
                             Mataha mataha = new Mataha();
+                            MainMenu.getMenuBar().setEnabled(false);
                         }
                     }
                 }

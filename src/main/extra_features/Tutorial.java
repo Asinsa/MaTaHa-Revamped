@@ -285,6 +285,7 @@ public class Tutorial {
                 tutorialStage.close();
                 if (inGame) {
                     Mataha mataha = new Mataha();
+                    menuBar.setEnabled(true);
                 }
                 else {
                     MainMenu back = new MainMenu();

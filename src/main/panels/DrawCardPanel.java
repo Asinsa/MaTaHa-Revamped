@@ -120,7 +120,7 @@ public class DrawCardPanel extends VBox {
         setImageAsTileBag();
         drawTile.setVisible(true);
         drawTile.setDisable(false);
-        downArrows.setVisible(true);
+        downArrows.setVisible(check());
     }
 
     /**
@@ -129,7 +129,7 @@ public class DrawCardPanel extends VBox {
     public void showRotateButtons() {
         rotateRight.setVisible(true);
         rotateLeft.setVisible(true);
-        upArrows.setVisible(true);
+        upArrows.setVisible(check());
     }
 
     /**
@@ -139,5 +139,9 @@ public class DrawCardPanel extends VBox {
         rotateRight.setVisible(false);
         rotateLeft.setVisible(false);
         upArrows.setVisible(false);
+    }
+
+    private boolean check() {
+        return MainMenu.getMenuBar().getTutorial();
     }
 }

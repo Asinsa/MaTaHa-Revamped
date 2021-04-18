@@ -20,6 +20,9 @@ public class MenuBars extends BorderPane {
     private double volume;
     private int sliderValue;
     private Stage stage;
+    private boolean isGame = false;
+    private boolean isEnabled = false;
+    private boolean tutorial;
    // private Scene scene;
 
     /**
@@ -38,7 +41,8 @@ public class MenuBars extends BorderPane {
      * @return the MenuBar
      */
     public MenuBar showMenuBar() {
-        // Menu bar
+
+        // Volume Tab
         Menu volumeMenu = new Menu("Volume");
 
         Slider volSlider = new Slider(0, 100, 0);
@@ -70,6 +74,7 @@ public class MenuBars extends BorderPane {
         });
         volumeMenu.getItems().add(mute);
 
+        // Quit Tab
         Menu quitMenu = new Menu("Quit");
 
         MenuItem quitToMenu = new MenuItem("Quit To Menu");
@@ -90,14 +95,50 @@ public class MenuBars extends BorderPane {
         });
         quitMenu.getItems().add(exitGame);
 
+        // Tutorial Tab
+        Menu tutorialMenu = new Menu("Tutorial");
+
+        RadioMenuItem enabled = new RadioMenuItem("Enabled");
+        enabled.setOnAction((ActionEvent t) -> {
+            tutorial = true;
+        });
+        RadioMenuItem disabled = new RadioMenuItem("Disabled");
+        disabled.setOnAction((ActionEvent t) -> {
+            tutorial = false;
+        });
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        toggleGroup.getToggles().add(enabled);
+        toggleGroup.getToggles().add(disabled);
+        enabled.setSelected(isEnabled);
+        disabled.setSelected(!isEnabled);
+
+        tutorialMenu.getItems().add(enabled);
+        tutorialMenu.getItems().add(disabled);
+
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(volumeMenu);
         menuBar.getMenus().add(quitMenu);
+        if (isGame) {
+            menuBar.getMenus().add(tutorialMenu);
+        }
 
         return menuBar;
     }
 
     public double getVolume() {
         return volume;
+    }
+
+    public void setGame(boolean state) {
+        isGame = state;
+    }
+
+    public void setEnabled(boolean state) {
+        isEnabled = state;
+    }
+
+    public boolean getTutorial() {
+        return tutorial;
     }
 }
