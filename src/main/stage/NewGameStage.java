@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.FileReader;
 import main.MainMenu;
@@ -43,15 +44,17 @@ public class NewGameStage {
     public static String fileUrl;
     public static ArrayList<String> players = new ArrayList<String>();
     public static ArrayList<String> chosenCharacters = new ArrayList<String>();
+    private MenuBars menuBar;
     String colour = "";
     String url = "";
     ToggleButton chosenButton = null;
+    private static final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
 
     /**
      * Method creates and shows the new game window.
      */
     public void showNewGameStage() {
-        MenuBars menuBar = MainMenu.getMenuBar();
+        menuBar = MainMenu.getMenuBar();
 
         BorderPane border = new BorderPane();
         border.setTop(menuBar.showMenuBar());
@@ -84,6 +87,7 @@ public class NewGameStage {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 fileUrl = "src/resources/LevelFiles/" + levelFileComboBox.getValue() + ".txt";
                 if (levelFileComboBox.getValue() != null) {
                     if (p1.getValue() == null || p2.getValue() == null) {
@@ -190,6 +194,7 @@ public class NewGameStage {
             character.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    CLICK_SFX.play(menuBar.getSFXVolume());
                     colour = chosenCharacterName;
                     url = "src//resources/Images//character_images//" + chosenCharacterName + ".gif";
                     chosenButton = character;
@@ -204,6 +209,7 @@ public class NewGameStage {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 if (characterToggle.getSelectedToggle() == null) {
                     warnings.setText(Utils.translate("Please select a character", MainMenu.getLang()));
                 }
@@ -226,8 +232,10 @@ public class NewGameStage {
 
                         Optional<ButtonType> result = alert.showAndWait();
                         if (result.get() == yesButton){
+                            CLICK_SFX.play(menuBar.getSFXVolume());
                             Tutorial tutorial = new Tutorial(true);
                         } else {
+                            CLICK_SFX.play(menuBar.getSFXVolume());
                             Mataha mataha = new Mataha();
                             MainMenu.getMenuBar().setEnabled(false);
                         }

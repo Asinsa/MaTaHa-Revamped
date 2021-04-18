@@ -49,6 +49,7 @@ public class MainMenu extends Application {
     private static double sfxVolume;
     private static MenuBars menuBar;
     private static final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
+
     /**
      * Method creates the main menu window.
      *

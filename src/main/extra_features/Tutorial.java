@@ -11,11 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import main.MainMenu;
 import main.Mataha;
 import main.Utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -26,6 +28,7 @@ public class Tutorial {
     private BorderPane main, turns, effectTiles;
     private MenuBars menuBar = MainMenu.getMenuBar();
     private boolean inGame;
+    private static final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
 
     public Tutorial(Boolean inGame) {
         this.inGame = inGame;
@@ -67,6 +70,7 @@ public class Tutorial {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 try {
                     showTurns();
                 } catch (FileNotFoundException e) {
@@ -79,6 +83,7 @@ public class Tutorial {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 tutorialStage.close();
                 if (inGame) {
                     Mataha mataha = new Mataha();
@@ -174,6 +179,7 @@ public class Tutorial {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 try {
                     showEffectTiles();
                 } catch (FileNotFoundException e) {
@@ -186,6 +192,7 @@ public class Tutorial {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 tutorialStage.getScene().setRoot(main);
             }
         });
@@ -282,6 +289,7 @@ public class Tutorial {
         next.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 tutorialStage.close();
                 if (inGame) {
                     Mataha mataha = new Mataha();
@@ -302,6 +310,7 @@ public class Tutorial {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 tutorialStage.getScene().setRoot(turns);
             }
         });
