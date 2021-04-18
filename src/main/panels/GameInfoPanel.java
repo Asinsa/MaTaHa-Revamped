@@ -96,23 +96,25 @@ public class GameInfoPanel extends VBox {
     public void showNextButton() {
         next.setVisible(true);
         upArrows.setVisible(MainMenu.getMenuBar().getTutorial());
+        //downArrows.setVisible(MainMenu.getMenuBar().getTutorial());
     }
 
     public void showNavNextButton() {
         navNext.setVisible(true);
-        downArrows.setVisible(MainMenu.getMenuBar().getTutorial());
+        //downArrows.setVisible(MainMenu.getMenuBar().getTutorial());
+        upArrows.setVisible(MainMenu.getMenuBar().getTutorial());
     }
 
     public void hideNavNextButton() {
         navNext.setVisible(false);
         upArrows.setVisible(false);
-        downArrows.setVisible(false);
+        //downArrows.setVisible(false);
     }
 
     public void hideNextButton() {
         next.setVisible(false);
         upArrows.setVisible(false);
-        downArrows.setVisible(false);
+        //downArrows.setVisible(false);
     }
 
     public PlayerTurnPanel getPtp() {

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import main.MainMenu;
+import main.Mataha;
 
 /**
  * MenuBars is the class for the menu bar.
@@ -115,6 +116,7 @@ public class MenuBars extends BorderPane {
         quitToMenu.setOnAction((ActionEvent t) -> {
             MainMenu back = new MainMenu();
             try {
+                Mataha.getStage().close();
                 back.start(new Stage());
             } catch (Exception e) {
                 e.printStackTrace();
