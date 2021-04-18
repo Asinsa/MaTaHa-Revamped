@@ -93,7 +93,7 @@ public class Game {
         MainMenu.mediaPlayer = new MediaPlayer(musicPlayer);
         MainMenu.mediaPlayer.setAutoPlay(true);
         MainMenu.mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        MainMenu.mediaPlayer.setVolume(MainMenu.getMenuBar().getVolume());
+        MainMenu.mediaPlayer.setVolume(MainMenu.getMenuBar().getMusicVolume());
 
         MenuBars menuBar = MainMenu.getMenuBar();
         menuBar.setGame(true);

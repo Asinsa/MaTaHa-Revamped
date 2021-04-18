@@ -48,7 +48,6 @@ public class MainMenu extends Application {
     private static double volume;
     private static MenuBars menuBar;
     private final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
-
     /**
      * Method creates the main menu window.
      *
@@ -100,7 +99,7 @@ public class MainMenu extends Application {
         temp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CLICK_SFX.play(10);
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 Tutorial tutorial = new Tutorial(false);
                 mainMenuStage.close();
             }

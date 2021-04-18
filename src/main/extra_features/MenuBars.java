@@ -17,8 +17,9 @@ import main.MainMenu;
  */
 public class MenuBars extends BorderPane {
 
-    private double volume;
-    private int sliderValue;
+    private double musicVolume;
+    private double sfxVolume;
+    private int musicVolSliderValue, sfxVolSliderValue;
     private Stage stage;
     private boolean isGame = false;
     private boolean isEnabled = false;
@@ -45,34 +46,67 @@ public class MenuBars extends BorderPane {
         // Volume Tab
         Menu volumeMenu = new Menu("Volume");
 
-        Slider volSlider = new Slider(0, 100, 0);
-        volSlider.setMajorTickUnit(10.0);
-        volSlider.adjustValue(sliderValue);
-        volSlider.valueProperty().addListener(new ChangeListener<Number>() {
+        // Music volume submenu
+        Menu musicMenu = new Menu("Music Volume");
+        Slider musicVolSlider = new Slider(0, 100, 0);
+        musicVolSlider.setMajorTickUnit(10.0);
+        musicVolSlider.adjustValue(musicVolSliderValue);
+        musicVolSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sliderValue = newValue.intValue();
-                volume = Math.round(newValue.intValue() * 10.0) / 1000.0;
-                System.out.println(volume);
-                MainMenu.getMediaPlayer().setVolume(volume);
+                musicVolSliderValue = newValue.intValue();
+                musicVolume = Math.round(newValue.intValue() * 10.0) / 1000.0;
+                System.out.println(musicVolume);
+                MainMenu.getMediaPlayer().setVolume(musicVolume);
             }
         });
 
-        CustomMenuItem volumeSlider = new CustomMenuItem();
-        volumeSlider.setContent(volSlider);
-        volumeSlider.setHideOnClick(false);
-        volumeMenu.getItems().add(volumeSlider);
+        CustomMenuItem musicVolumeSlider = new CustomMenuItem();
+        musicVolumeSlider.setContent(musicVolSlider);
+        musicVolumeSlider.setHideOnClick(false);
+        musicMenu.getItems().add(musicVolumeSlider);
 
-        MenuItem mute = new MenuItem("Mute");
+        MenuItem musicMute = new MenuItem("Mute");
         ImageView imageView = new ImageView("src\\resources\\Images\\menu_images\\mute.png");
         imageView.setFitHeight(30);
         imageView.setFitWidth(30);
-        mute.setGraphic(imageView);
-        mute.setOnAction(e -> {
+        musicMute.setGraphic(imageView);
+        musicMute.setOnAction(e -> {
             MainMenu.getMediaPlayer().setVolume(0);
-            volSlider.setValue(0);
+            musicVolSlider.setValue(0);
         });
-        volumeMenu.getItems().add(mute);
+        musicMenu.getItems().add(musicMute);
+
+        // SFX volume submenu
+        Menu sfxMenu = new Menu("SFX Volume");
+        Slider sfxVolSlider = new Slider(0, 100, 0);
+        sfxVolSlider.setMajorTickUnit(10.0);
+        sfxVolSlider.adjustValue(sfxVolSliderValue);
+        sfxVolSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sfxVolSliderValue = newValue.intValue();
+                sfxVolume = Math.round(newValue.intValue() * 10.0) / 1000.0;
+                System.out.println(sfxVolume);
+            }
+        });
+
+        CustomMenuItem sfxVolumeSlider = new CustomMenuItem();
+        sfxVolumeSlider.setContent(sfxVolSlider);
+        sfxVolumeSlider.setHideOnClick(false);
+        sfxMenu.getItems().add(sfxVolumeSlider);
+
+        MenuItem sfxmute = new MenuItem("Mute");
+        sfxmute.setGraphic(imageView);
+        sfxmute.setOnAction(e -> {
+            sfxVolume = 0;
+            sfxVolSlider.setValue(0);
+        });
+        sfxMenu.getItems().add(sfxmute);
+
+        volumeMenu.getItems().add(musicMenu);
+        volumeMenu.getItems().add(sfxMenu);
+
 
         // Quit Tab
         Menu quitMenu = new Menu("Quit");
@@ -126,8 +160,12 @@ public class MenuBars extends BorderPane {
         return menuBar;
     }
 
-    public double getVolume() {
-        return volume;
+    public double getMusicVolume() {
+        return musicVolume;
+    }
+
+    public double getSFXVolume() {
+        return sfxVolume;
     }
 
     public void setGame(boolean state) {
