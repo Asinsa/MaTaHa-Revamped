@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -46,6 +47,7 @@ public class MainMenu extends Application {
     public static MediaPlayer mediaPlayer = null;
     private static double volume;
     private static MenuBars menuBar;
+    private final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
 
     /**
      * Method creates the main menu window.
@@ -98,6 +100,7 @@ public class MainMenu extends Application {
         temp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(10);
                 Tutorial tutorial = new Tutorial(false);
                 mainMenuStage.close();
             }
