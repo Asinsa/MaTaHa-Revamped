@@ -3,9 +3,13 @@ package main;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
+import main.extra_features.MenuBars;
 import main.tile.NavigationTile;
 import main.tile.Tile;
 
+import java.io.File;
 import java.util.*;
 
 public class GameBoard extends GridPane {
@@ -14,6 +18,8 @@ public class GameBoard extends GridPane {
     //arbitrary comment
     private BoardSquare[][] board;
     private INPUTMODE inputMode;
+    MenuBars menuBar = new MenuBars(new Stage());
+    private static final AudioClip NEXT_SFX = new AudioClip(new File("src/resources/SFX/next.mp3").toURI().toString());
 
     public GameBoard(BoardSquare[][] board) {
         this.board = board;
@@ -133,6 +139,7 @@ public class GameBoard extends GridPane {
             }
             int finalI = i;
             button.setOnMouseClicked(event -> {
+                NEXT_SFX.play(menuBar.getSFXVolume());
                 NavigationTile tile = Mataha.getGame().getCurrentPlayer().getHeldNavigationTile();
                 pushFromLeft(finalI, tile);
                 Mataha.getGame().getCurrentPlayer().setHeldNavigationTile(null);
@@ -154,6 +161,7 @@ public class GameBoard extends GridPane {
             }
             int finalI = i;
             button.setOnMouseClicked(event -> {
+                NEXT_SFX.play(menuBar.getSFXVolume());
                 NavigationTile tile = Mataha.getGame().getCurrentPlayer().getHeldNavigationTile();
                 pushFromRight(finalI, tile);
                 Mataha.getGame().getCurrentPlayer().setHeldNavigationTile(null);
@@ -175,6 +183,7 @@ public class GameBoard extends GridPane {
             }
             int finalI = i;
             button.setOnMouseClicked(event -> {
+                NEXT_SFX.play(menuBar.getSFXVolume());
                 NavigationTile tile = Mataha.getGame().getCurrentPlayer().getHeldNavigationTile();
                 pushFromTop(finalI, tile);
                 Mataha.getGame().getCurrentPlayer().setHeldNavigationTile(null);
@@ -196,6 +205,7 @@ public class GameBoard extends GridPane {
             }
             int finalI = i;
             button.setOnMouseClicked(event -> {
+                NEXT_SFX.play(menuBar.getSFXVolume());
                 NavigationTile tile = Mataha.getGame().getCurrentPlayer().getHeldNavigationTile();
                 pushFromBottom(finalI, tile);
                 Mataha.getGame().getCurrentPlayer().setHeldNavigationTile(null);

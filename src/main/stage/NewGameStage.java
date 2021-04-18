@@ -194,7 +194,6 @@ public class NewGameStage {
             character.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    CLICK_SFX.play(menuBar.getSFXVolume());
                     colour = chosenCharacterName;
                     url = "src//resources/Images//character_images//" + chosenCharacterName + ".gif";
                     chosenButton = character;
