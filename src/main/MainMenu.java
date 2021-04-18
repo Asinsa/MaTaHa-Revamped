@@ -46,8 +46,9 @@ public class MainMenu extends Application {
     private static final boolean IS_RESIZABLE = true;
     public static MediaPlayer mediaPlayer = null;
     private static double volume;
+    private static double sfxVolume;
     private static MenuBars menuBar;
-    private final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
+    private static final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
     /**
      * Method creates the main menu window.
      *
@@ -111,6 +112,7 @@ public class MainMenu extends Application {
         play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 NewGameStage newGame = new NewGameStage();
                 newGame.showNewGameStage();
                 mainMenuStage.close();
@@ -126,6 +128,7 @@ public class MainMenu extends Application {
         loadGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 LoadGameStage loadGame = new LoadGameStage();
                 try {
                     loadGame.showLoadGameStage();
@@ -145,6 +148,7 @@ public class MainMenu extends Application {
         levelEditor.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 LevelEditorStage levelEditor = new LevelEditorStage();
                 levelEditor.showLevelEditorStage();
                 mainMenuStage.close();
@@ -160,6 +164,7 @@ public class MainMenu extends Application {
         newProfile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 NewProfileStage newProfile = new NewProfileStage();
                 try {
                     newProfile.showNewProfileStage();
@@ -176,6 +181,7 @@ public class MainMenu extends Application {
         highScores.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                CLICK_SFX.play(menuBar.getSFXVolume());
                 LeaderboardStage leaderboard = new LeaderboardStage();
                 leaderboard.showLeaderboardStage();
                 mainMenuStage.close();

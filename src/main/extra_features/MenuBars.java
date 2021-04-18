@@ -17,9 +17,9 @@ import main.MainMenu;
  */
 public class MenuBars extends BorderPane {
 
-    private double musicVolume;
-    private double sfxVolume;
-    private int musicVolSliderValue, sfxVolSliderValue;
+    private static double musicVolume;
+    private static double sfxVolume;
+    private static int musicVolSliderValue, sfxVolSliderValue;
     private Stage stage;
     private boolean isGame = false;
     private boolean isEnabled = false;
