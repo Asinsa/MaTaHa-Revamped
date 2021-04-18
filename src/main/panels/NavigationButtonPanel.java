@@ -7,9 +7,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 import main.*;
+import main.extra_features.MenuBars;
 import main.tile.NavigationTile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -27,6 +31,8 @@ public class NavigationButtonPanel extends VBox {
     private Button down;
     private Button left;
     ImageView downArrows = new ImageView();
+    MenuBars menuBar = new MenuBars(new Stage());
+    private static final AudioClip MOVEMENT_SFX = new AudioClip(new File("src/resources/SFX/movement.mp3").toURI().toString());
 
     public NavigationButtonPanel(BottomPanel context) {
         this.context = context;
@@ -47,6 +53,7 @@ public class NavigationButtonPanel extends VBox {
 
         up = new Button(Utils.translate("Up", MainMenu.getLang()));
         up.setOnMouseClicked(event -> {
+            MOVEMENT_SFX.play(menuBar.getSFXVolume());
             Player currentPlayer = Mataha.getGame().getCurrentPlayer();
             currentPlayer.setNumMoves(currentPlayer.getNumMoves() - 1);
             currentPlayer.moveCardinally(NavigationTile.DIRECTION.UP);
@@ -61,6 +68,7 @@ public class NavigationButtonPanel extends VBox {
 
         left = new Button(Utils.translate("Left", MainMenu.getLang()));
         left.setOnMouseClicked(event -> {
+            MOVEMENT_SFX.play(menuBar.getSFXVolume());
             Player currentPlayer = Mataha.getGame().getCurrentPlayer();
             currentPlayer.setNumMoves(currentPlayer.getNumMoves() - 1);
             currentPlayer.moveCardinally(NavigationTile.DIRECTION.LEFT);
@@ -74,6 +82,7 @@ public class NavigationButtonPanel extends VBox {
 
         right = new Button(Utils.translate("Right", MainMenu.getLang()));
         right.setOnMouseClicked(event -> {
+            MOVEMENT_SFX.play(menuBar.getSFXVolume());
             Player currentPlayer = Mataha.getGame().getCurrentPlayer();
             currentPlayer.setNumMoves(currentPlayer.getNumMoves() - 1);
             currentPlayer.moveCardinally(NavigationTile.DIRECTION.RIGHT);
@@ -87,6 +96,7 @@ public class NavigationButtonPanel extends VBox {
 
         down = new Button(Utils.translate("Down", MainMenu.getLang()));
         down.setOnMouseClicked(event -> {
+            MOVEMENT_SFX.play(menuBar.getSFXVolume());
             Player currentPlayer = Mataha.getGame().getCurrentPlayer();
             currentPlayer.setNumMoves(currentPlayer.getNumMoves() - 1);
             currentPlayer.moveCardinally(NavigationTile.DIRECTION.DOWN);
