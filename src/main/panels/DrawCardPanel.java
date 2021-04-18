@@ -7,11 +7,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 import main.MainMenu;
 import main.Mataha;
 import main.Utils;
+import main.extra_features.MenuBars;
 import main.tile.NavigationTile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -32,6 +36,8 @@ public class DrawCardPanel extends VBox {
     private Button rotateRight;
     ImageView downArrows = new ImageView();
     ImageView upArrows = new ImageView();
+    MenuBars menuBar = new MenuBars(new Stage());
+    private static final AudioClip NEXT_SFX = new AudioClip(new File("src/resources/SFX/next.mp3").toURI().toString());
 
     /**
      * This creates the space for the draw card panel upon the game, this sets the width, the alignment ready for the content.
@@ -57,6 +63,7 @@ public class DrawCardPanel extends VBox {
     public void initNodes() {
         drawTile = new Button(Utils.translate("Draw card", MainMenu.getLang()));
         drawTile.setOnMouseClicked(event -> {
+            NEXT_SFX.play(menuBar.getSFXVolume());
             Mataha.getGame().getCurrentPlayer().drawCard();
             drawTile.setDisable(true);
             downArrows.setVisible(false);
@@ -94,10 +101,12 @@ public class DrawCardPanel extends VBox {
 
         rotateLeft = new Button("\t↺");
         rotateLeft.setOnMouseClicked(event -> {
+            NEXT_SFX.play(menuBar.getSFXVolume());
             navigationTile.rotateClockwise(3);
         });
         rotateRight = new Button("\t↻");
         rotateRight.setOnMouseClicked(event -> {
+            NEXT_SFX.play(menuBar.getSFXVolume());
             navigationTile.rotateClockwise();
         });
 

@@ -7,8 +7,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 import main.*;
+import main.extra_features.MenuBars;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -26,6 +30,8 @@ public class GameInfoPanel extends VBox {
     private PlayerTurnPanel ptp;
     ImageView downArrows = new ImageView();
     ImageView upArrows = new ImageView();
+    MenuBars menuBar = new MenuBars(new Stage());
+    private static final AudioClip NEXT_SFX = new AudioClip(new File("src/resources/SFX/next.mp3").toURI().toString());
 
     /**
      * Constructor sets the game info panel in the game window.
@@ -62,6 +68,7 @@ public class GameInfoPanel extends VBox {
         this.getChildren().add(downArrows);
         this.getChildren().add(next);
         next.setOnMouseClicked(event -> {
+            NEXT_SFX.play(menuBar.getSFXVolume());
             Mataha.getGame().gameLoop(Mataha.getGame().nextPlayer());
             next.setVisible(false);
             downArrows.setVisible(false);
@@ -73,6 +80,7 @@ public class GameInfoPanel extends VBox {
         this.getChildren().add(navNext);
         this.getChildren().add(upArrows);
         navNext.setOnMouseClicked(event -> {
+            NEXT_SFX.play(menuBar.getSFXVolume());
             Mataha.getGame().initNavigationUI();
             navNext.setVisible(false);
             upArrows.setVisible(false);
