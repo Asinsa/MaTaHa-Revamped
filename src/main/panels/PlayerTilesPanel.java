@@ -103,7 +103,7 @@ public class PlayerTilesPanel extends HBox {
             Mataha.getGame().getCurrentPlayer().setCurrentlySelectedEffect(container);
             container.setClicked(true);
             // unClickAllExcept(container);
-            Mataha.getGame().getGameInfoPanel().hideNavNextButton();
+            Mataha.getGame().getGameInfoPanel().hideNextButton();
             /*
             switch (effectTile.getTileEffect().getEffectName()) {
                 case "ice":

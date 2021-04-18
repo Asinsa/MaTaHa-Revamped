@@ -3,9 +3,14 @@ package main.panels;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * Class for the game info panel GUI.
@@ -19,6 +24,8 @@ public class GameInfoPanel extends VBox {
     private Button next;
     private Button navNext;
     private PlayerTurnPanel ptp;
+    ImageView downArrows = new ImageView();
+    ImageView upArrows = new ImageView();
 
     /**
      * Constructor sets the game info panel in the game window.
@@ -31,6 +38,12 @@ public class GameInfoPanel extends VBox {
         this.setPadding(new Insets(0, 60, 0, 0));
         this.setSpacing(100);
         this.setMaxWidth(200);
+        try {
+            downArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/downArrows.gif"), 100, 100, true, false));
+            upArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/upArrows.gif"), 100, 100, true, false));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         initNodes();
     }
 
@@ -46,22 +59,26 @@ public class GameInfoPanel extends VBox {
         this.getChildren().add(tipLabel);
         tipLabel.setDrawTileText();
         next = new Button(Utils.translate("Next", MainMenu.getLang()));
+        this.getChildren().add(downArrows);
         this.getChildren().add(next);
         next.setOnMouseClicked(event -> {
             Mataha.getGame().gameLoop(Mataha.getGame().nextPlayer());
             next.setVisible(false);
+            downArrows.setVisible(false);
         });
         next.setVisible(false);
+        downArrows.setVisible(false);
 
         navNext = new Button(Utils.translate("Next", MainMenu.getLang()));
         this.getChildren().add(navNext);
+        this.getChildren().add(upArrows);
         navNext.setOnMouseClicked(event -> {
             Mataha.getGame().initNavigationUI();
             navNext.setVisible(false);
+            upArrows.setVisible(false);
         });
         navNext.setVisible(false);
-
-
+        upArrows.setVisible(false);
     }
 
     public TipLabel getTipLabel() {
@@ -70,18 +87,24 @@ public class GameInfoPanel extends VBox {
 
     public void showNextButton() {
         next.setVisible(true);
+        upArrows.setVisible(MainMenu.getMenuBar().getTutorial());
     }
 
     public void showNavNextButton() {
         navNext.setVisible(true);
+        downArrows.setVisible(MainMenu.getMenuBar().getTutorial());
     }
 
     public void hideNavNextButton() {
         navNext.setVisible(false);
+        upArrows.setVisible(false);
+        downArrows.setVisible(false);
     }
 
     public void hideNextButton() {
         next.setVisible(false);
+        upArrows.setVisible(false);
+        downArrows.setVisible(false);
     }
 
     public PlayerTurnPanel getPtp() {
