@@ -3,10 +3,15 @@ package main.panels;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.*;
 import main.tile.NavigationTile;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /***
  * This class is providing the bottom panel for the navigation tiles.
@@ -21,9 +26,15 @@ public class NavigationButtonPanel extends VBox {
     private Button right;
     private Button down;
     private Button left;
+    ImageView downArrows = new ImageView();
 
     public NavigationButtonPanel(BottomPanel context) {
         this.context = context;
+        try {
+            downArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/downArrows.gif"), 100, 100, true, false));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         initSelf();
     }
 
@@ -100,6 +111,7 @@ public class NavigationButtonPanel extends VBox {
         middle.getChildren().add(right);
         bottom.getChildren().add(down);
 
+        this.getChildren().add(downArrows);
         this.getChildren().add(top);
         this.getChildren().add(middle);
         this.getChildren().add(bottom);
@@ -117,6 +129,7 @@ public class NavigationButtonPanel extends VBox {
         Player currentPlayer = Mataha.getGame().getCurrentPlayer();
         BoardSquare bs = currentPlayer.getSquare();
 
+        downArrows.setVisible(MainMenu.getMenuBar().getTutorial());
 
         if (currentPlayer.canMoveUp()) {
             up.setDisable(false);

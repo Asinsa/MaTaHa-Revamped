@@ -1,12 +1,17 @@
 package main.panels;
 
 import javafx.beans.binding.Bindings;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import main.Game;
 import main.Mataha;
 import main.tile.EffectTile;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /***
  * This class is fro the bottom panel for the buttons which are used during the gameplay
@@ -18,6 +23,7 @@ public class BottomPanel extends Pane {
     private NavigationButtonPanel navigationButtonPanel;
     private PlayerTilesPanel playerTilesPanel;
     private Game game;
+    ImageView downArrows = new ImageView();
 
     /***
      * This is the constructor for the bottom panel, this gets the current game, and sets the navigation panel
@@ -28,7 +34,11 @@ public class BottomPanel extends Pane {
         this.game = game;
         navigationButtonPanel = new NavigationButtonPanel(this);
         playerTilesPanel = new PlayerTilesPanel(this);
-
+        try {
+            downArrows = new ImageView(new Image(new FileInputStream("src/resources/Images/game_images/downArrows.gif"), 100, 100, true, false));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /***
@@ -55,6 +65,7 @@ public class BottomPanel extends Pane {
     public void displayNavigationButtons() {
         this.getChildren().clear();
         navigationButtonPanel.updateUI();
+        this.getChildren().add(downArrows);
         this.getChildren().add(navigationButtonPanel);
     }
 
@@ -75,6 +86,7 @@ public class BottomPanel extends Pane {
     public void displayNewTile(EffectTile tile) {
         this.getChildren().clear();
         playerTilesPanel.setNewTile(tile);
+        this.getChildren().add(downArrows);
         this.getChildren().add(playerTilesPanel);
     }
 
