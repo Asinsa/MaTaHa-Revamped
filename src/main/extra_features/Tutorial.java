@@ -21,6 +21,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Tutorial is the class for the tutorial menus.
+ *
+ * @author Asinsa Guniyangodage
+ * @version 1
+ */
 public class Tutorial {
 
     private Stage tutorialStage = new Stage();
@@ -30,6 +36,11 @@ public class Tutorial {
     private boolean inGame;
     private static final AudioClip CLICK_SFX = new AudioClip(new File("src/resources/SFX/click.mp3").toURI().toString());
 
+    /**
+     * This initialises the tutorial
+     *
+     * @param inGame - Whether the tutorial is being accessed inGame or in the menus
+     */
     public Tutorial(Boolean inGame) {
         this.inGame = inGame;
         try {
@@ -40,7 +51,7 @@ public class Tutorial {
     }
 
     /**
-     * Method creates and shows the main game window where the game will be played.
+     * Method creates and shows the main tutorial window where the aims and summary of the game are displayed
      */
     public void showTutorialStage() throws FileNotFoundException {
         menuBar = MainMenu.getMenuBar();
@@ -117,6 +128,9 @@ public class Tutorial {
         tutorialStage.show();
     }
 
+    /**
+     * Method shows the 2nd page of the tutorial with the turns explained
+     */
     public void showTurns() throws FileNotFoundException {
         turns = new BorderPane();
         turns.setTop(menuBar.showMenuBar());
@@ -215,6 +229,9 @@ public class Tutorial {
         tutorialStage.getScene().setRoot(turns);
     }
 
+    /**
+     * Method shows the 3rd page of the tutorial with the effect tiles explained
+     */
     public void showEffectTiles() throws FileNotFoundException {
         effectTiles = new BorderPane();
         effectTiles.setTop(menuBar.showMenuBar());

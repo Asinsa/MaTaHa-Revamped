@@ -25,7 +25,6 @@ public class MenuBars extends BorderPane {
     private boolean isGame = false;
     private boolean isEnabled = false;
     private boolean tutorial;
-   // private Scene scene;
 
     /**
      * This initialises the menu bar
@@ -162,22 +161,47 @@ public class MenuBars extends BorderPane {
         return menuBar;
     }
 
+    /**
+     * Method that gets the music volume
+     *
+     * @return the music volume
+     */
     public double getMusicVolume() {
         return musicVolume;
     }
 
+    /**
+     * Method that gets the sound effects volume
+     *
+     * @return the SFX volume
+     */
     public double getSFXVolume() {
         return sfxVolume;
     }
 
+    /**
+     * Method that gets whether the menubar is in the game or in the menus
+     *
+     * @param state - True if in game, false if not
+     */
     public void setGame(boolean state) {
         isGame = state;
     }
 
+    /**
+     * Method that gets whether tutorial mode is enabled or disabled
+     *
+     * @param state - True if enabled, false if not
+     */
     public void setEnabled(boolean state) {
         isEnabled = state;
     }
 
+    /**
+     * Method that gets whether tutorial mode is on or not
+     *
+     * @return true if tutorial, false if not
+     */
     public boolean getTutorial() {
         return tutorial;
     }
